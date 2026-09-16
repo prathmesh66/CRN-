@@ -1,0 +1,3 @@
+using CRN.ProductApi.Domain.Entities; using Microsoft.EntityFrameworkCore; using Microsoft.EntityFrameworkCore.Metadata.Builders;
+namespace CRN.ProductApi.Infrastructure.Data.Configurations;
+public class ProductConfiguration : IEntityTypeConfiguration<Product>{public void Configure(EntityTypeBuilder<Product>b){b.ToTable("Product");b.HasKey(x=>x.Id);b.Property(x=>x.ProductName).HasMaxLength(255).IsRequired();b.Property(x=>x.CreatedBy).HasMaxLength(100).IsRequired();b.Property(x=>x.CreatedOn).IsRequired();b.Property(x=>x.ModifiedBy).HasMaxLength(100);b.HasMany(x=>x.Items).WithOne(x=>x.Product).HasForeignKey(x=>x.ProductId).OnDelete(DeleteBehavior.Cascade);b.HasIndex(x=>x.ProductName);}}

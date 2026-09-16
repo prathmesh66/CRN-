@@ -1,0 +1,3 @@
+using CRN.ProductApi.Domain.Entities; using Microsoft.EntityFrameworkCore; using Microsoft.EntityFrameworkCore.Metadata.Builders;
+namespace CRN.ProductApi.Infrastructure.Data.Configurations;
+public class UserConfiguration : IEntityTypeConfiguration<UserAccount>{public void Configure(EntityTypeBuilder<UserAccount>b){b.ToTable("UserAccount");b.HasKey(x=>x.Id);b.Property(x=>x.Username).HasMaxLength(100).IsRequired();b.HasIndex(x=>x.Username).IsUnique();b.Property(x=>x.PasswordHash).IsRequired();b.Property(x=>x.Role).HasMaxLength(50).IsRequired();b.HasMany(x=>x.RefreshTokens).WithOne(x=>x.UserAccount).HasForeignKey(x=>x.UserAccountId).OnDelete(DeleteBehavior.Cascade);}}
